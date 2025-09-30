@@ -1,0 +1,16 @@
+const express = require("express");
+const router = express.Router();
+const payloadMiddleWare = require("../middlewares/payload.middleware");
+const reviewSchema = require("./joiValidations/review.validations");
+const {
+  getAllReviews,
+  createNewReview,
+} = require("../controllers/review.controller");
+// rutas del contenirdo reseñas
+router.get("/reviews", getAllReviews);
+/* router.get("/resenas/:id"); */
+router.post("/review", payloadMiddleWare(reviewSchema), createNewReview);
+/* router.delete("/resenas/:id");
+router.put("/resenas/:id"); */
+
+module.exports = router;
