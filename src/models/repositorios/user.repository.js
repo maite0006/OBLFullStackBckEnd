@@ -11,7 +11,7 @@ const isValidPassword = async (password, userPassword) => {
 };
 
 const saveUser = async (name, password, email) => {
-  const hashedPassword = await bcrypt.hash(password, 10); //ns si era 10 o 12
+  const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
     nombre: name,
     password: hashedPassword,
@@ -23,8 +23,21 @@ const saveUser = async (name, password, email) => {
   return res;
 };
 
+//TODO: Arreglar cambiar plan
+const cambiarPalan = async (userId, /* nuevoPaln, */ payload) => {
+  const user = await User.findOne({ _id: userId });
+  if (user) {
+    Object.entries(payload).forEach(([key, value]) => {
+      user[key] = value;
+    });
+    await user.save();
+  }
+  return user;
+};
+
 module.exports = {
   findUserByEmail,
   isValidPassword,
   saveUser,
+  cambiarPalan,
 };

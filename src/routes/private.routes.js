@@ -6,11 +6,17 @@ const {
   getAllReviews,
   createNewReview,
 } = require("../controllers/review.controller");
+
 // rutas del contenirdo reseñas
 router.get("/reviews", getAllReviews);
 /* router.get("/resenas/:id"); */
 router.post("/review", payloadMiddleWare(reviewSchema), createNewReview);
 /* router.delete("/resenas/:id");
 router.put("/resenas/:id"); */
+
+// Rutas de usuario
+const { cambiarP } = require("../controllers/user.controller");
+
+router.put("/user", cambiarP);
 
 module.exports = router;
