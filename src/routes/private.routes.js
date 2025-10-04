@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const payloadMiddleWare = require("../middlewares/payload.middleware");
-const reviewSchema = require("./joiValidations/review.validations");
+const reviewSchemaValidations = require("./joiValidations/review.validations");
 const {
   getAllReviews,
   createNewReview,
@@ -10,7 +10,7 @@ const {
 // rutas del contenirdo reseñas
 router.get("/reviews", getAllReviews);
 /* router.get("/resenas/:id"); */
-router.post("/review", payloadMiddleWare(reviewSchema), createNewReview);
+router.post("/review", payloadMiddleWare(reviewSchemaValidations), createNewReview);
 /* router.delete("/resenas/:id");
 router.put("/resenas/:id"); */
 
