@@ -11,14 +11,12 @@ const reviewSchema = new mongoose.Schema(
     multimediaId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Multimedia",
-      //TODO; Cambiarlo a ture al required
-      /* require: true, */
+       require: true, 
     }, // referencia al multimedia
-    etiqueta: {
+    etiquetaId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Etiqueta",
-      // TODO: Cambiarlo a ture al required
-      /* require: true, */
+      require: true, 
     }, // referencia a la etiqueta
   },
   {

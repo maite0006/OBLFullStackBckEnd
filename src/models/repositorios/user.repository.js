@@ -10,6 +10,7 @@ const isValidPassword = async (password, userPassword) => {
   return result;
 };
 
+
 const saveUser = async (name, password, email) => {
   const hashedPassword = await bcrypt.hash(password, 10); //ns si era 10 o 12
   const newUser = new User({

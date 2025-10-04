@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const etiquetaSchema = new mongoose.Schema({
@@ -9,10 +10,11 @@ const etiquetaSchema = new mongoose.Schema({
   },
   descripcion: {
     type: String,
-    trim: true
+    trim: true,
+    required:true
   },
 }, {
-  timestamps: true // crea createdAt y updatedAt automáticamente
+  timestamps: true 
 });
 
 module.exports = etiquetaSchema;

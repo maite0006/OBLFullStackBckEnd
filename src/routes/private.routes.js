@@ -10,7 +10,8 @@ const {
 router.get("/reviews", getAllReviews);
 /* router.get("/resenas/:id"); */
 router.post("/review", payloadMiddleWare(reviewSchemaValidations), createNewReview);
-/* router.delete("/resenas/:id");
-router.put("/resenas/:id"); */
+ router.delete("/resenas/:id");
+
+/*router.put("/resenas/:id"); */
 
 module.exports = router;

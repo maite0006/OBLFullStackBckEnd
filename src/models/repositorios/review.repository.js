@@ -6,21 +6,25 @@ const allReviews = async (userId) => {
   });
   return reviews;
 };
-
-// TODO: Poner las etiquetas y pasarle el Id del contenido multimedia
+const getbyEtiqueta=async(etiquetaId)=>{
+    const reviews=await Review.find({etiquetaId:etiquetaId});
+    return reviews;
+} 
+const eliminarReview=async(id)=>{
+    await Review.findByIdAndDelete(id);
+}
 const createReview = async (
   comentario,
   etiqueta,
   usuarioId,
-  /* multimediaId, */
+  multimediaId, 
   plan
 ) => {
-  //TODO: Agregar multimediaId
   const newReview = new Review({
     comentario: comentario,
-    etiqueta: etiqueta,
+    etiquetaId: etiqueta,
     userId: usuarioId,
-    /* multimediaId: multimediaId, */
+    multimediaId: multimediaId
   });
 
   // Obtiene todas las reseñas del usuario
@@ -36,4 +40,6 @@ const createReview = async (
 module.exports = {
   allReviews,
   createReview,
+  getbyEtiqueta,
+  eliminarReview
 };
