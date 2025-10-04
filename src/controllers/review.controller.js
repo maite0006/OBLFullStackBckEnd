@@ -31,14 +31,15 @@ const createNewReview = async (req, res) => {
     await createReview(
       body.comentario,
       body.etiqueta,
-      user.id,
+      user.id
       /* body.multimediaId, */
-      user.plan
     );
     res.status(201).json({
       message: "Reseña creada correctamente",
     });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({ message: `Ha ocurrido un error` });
   }
 };
