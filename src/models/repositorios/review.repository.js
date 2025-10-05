@@ -7,23 +7,22 @@ const allReviews = async (userId) => {
   });
   return reviews;
 };
-const getbyEtiqueta=async(etiquetaId)=>{
+const byEtiqueta = async(etiquetaId)=>{
     const reviews=await Review.find({etiquetaId:etiquetaId});
     return reviews;
 } 
-const eliminarReview=async(id)=>{
+const deleteReview=async(id)=>{
     await Review.findByIdAndDelete(id);
 }
 const createReview = async (
   comentario,
-  etiqueta,
+  etiquetaId,
   usuarioId,
-  multimediaId, 
-  plan
+  multimediaId
 ) => {
   const newReview = new Review({
     comentario: comentario,
-    etiquetaId: etiqueta,
+    etiquetaId: etiquetaId,
     userId: usuarioId,
     multimediaId: multimediaId
   });
@@ -43,6 +42,6 @@ const createReview = async (
 module.exports = {
   allReviews,
   createReview,
-  getbyEtiqueta,
-  eliminarReview
+  byEtiqueta,
+  deleteReview
 };

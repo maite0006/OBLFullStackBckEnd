@@ -5,8 +5,8 @@ const authMiddleWare = (req, res, next) => {
   const token = req.headers["authorization"];
   if (!token) {
     return res
-      .status(401)
-      .json({ message: "UnAuthorized - invalid token provided" });
+      .status(403)
+      .json({ message: "Forbbiden - no token provided" });
   }
 
   try {

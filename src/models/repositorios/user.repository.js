@@ -10,6 +10,27 @@ const isValidPassword = async (password, userPassword) => {
   return result;
 };
 
+const addFavorito = async (userId, multimediaId) => {
+  const user = await User.findById(userId);
+  if (!user) {
+    const err = new Error("Usuario no encontrado");
+    err.status = 404;
+    throw err;
+  }
+
+  if (!user.favoritos.includes(multimediaId)) {
+    user.favoritos.push(multimediaId);
+    await user.save();
+    
+  }
+  else {  
+    const err = new Error("La multimedia ya está en favoritos");
+    err.status = 400;
+    throw err;
+    
+  }
+  return user.favoritos;
+};
 
 const saveUser = async (name, password, email) => {
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -41,4 +62,5 @@ module.exports = {
   isValidPassword,
   saveUser,
   cambiarPalan,
+  addFavorito,
 };

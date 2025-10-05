@@ -1,4 +1,4 @@
-const Etiqueta=require("../schemas/etiqueta.schema");
+const Etiqueta=require("../etiqueta.model.js");
 
 
 const allEtiquetas=async()=>{

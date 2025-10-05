@@ -16,10 +16,11 @@ const userSchema = new mongoose.Schema(
     reseñas: [
       { type: mongoose.Schema.Types.ObjectId, ref: "Review" }, //colección de reseñas(sin crear todavia)
     ],
+    favoritos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Multimedia" }],
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = userSchema;
+module.exports = userSchema;

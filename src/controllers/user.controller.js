@@ -1,4 +1,4 @@
-const { cambiarPalan } = require("../models/repositorios/user.repository");
+const { cambiarPalan,addFavorito } = require("../models/repositorios/user.repository");
 
 const cambiarP = async (req, res) => {
   const { body } = req;
@@ -11,7 +11,19 @@ const cambiarP = async (req, res) => {
     return;
   }
 };
+const agregarFavorito = async (req, res) => {
+  const { multimediaId } = req.body;
+  const { id } = req.user;  
+  try {
+    const favoritos = await addFavorito(id, multimediaId);
+    res.status(200).json({ message: "Multimedia añadida a favoritos", favoritos });
+  } catch (error) {
+    res.status(error.status||500).json({ message: error.message|| 'Ha ocurrido un error' });
+    return;
+  }
+};
 
 module.exports = {
   cambiarP,
+  agregarFavorito
 };

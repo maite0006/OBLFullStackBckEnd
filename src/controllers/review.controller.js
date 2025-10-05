@@ -1,8 +1,8 @@
 const {
   allReviews,
   createReview,
-  eliminarReview,
-  getbyEtiqueta
+  deleteReview,
+  byEtiqueta
 } = require("../models/repositorios/review.repository");
 
 const getAllReviews = async (req, res) => {
@@ -18,7 +18,7 @@ const getAllReviews = async (req, res) => {
 const getbyEtiqueta=async(req,res)=>{
     const {etiquetaId}=req.params;  
     try {
-        const reviews=await getbyEtiqueta(etiquetaId);
+        const reviews=await byEtiqueta(etiquetaId);
         res.status(200).json(reviews);
     } catch (error) {
         res.status(500).json({ message: `Ha ocurrido un error` });
@@ -30,9 +30,9 @@ const createNewReview = async (req, res) => {
   try {
     await createReview(
       body.comentario,
-      body.etiqueta,
-      user.id
-      /* body.multimediaId, */
+      body.etiquetaId,
+      user.id,
+      body.multimediaId, 
     );
     res.status(201).json({
       message: "Reseña creada correctamente",
@@ -40,13 +40,15 @@ const createNewReview = async (req, res) => {
   } catch (error) {
     console.log(error);
 
-    res.status(500).json({ message: `Ha ocurrido un error` });
+    res.status(error.status|| 500).json({message: error.message||  'Ha ocurrido un error' });
   }
 };
+
+
 const eliminarReview = async (req, res) => {
   const { id } = req.params;
   try {
-    await eliminarReview(id);
+    await deleteReview(id);
     res.status(200).json({ message: "Reseña eliminada correctamente" });
   } catch (error) {
     res.status(500).json({ message: `Ha ocurrido un error` });
