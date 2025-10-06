@@ -9,7 +9,15 @@ const isValidPassword = async (password, userPassword) => {
   const result = await bcrypt.compare(password, userPassword);
   return result;
 };
-
+const getFavoritos= async (userId) => {
+  const user = await User.findById(userId);
+  if (!user) {
+    const error = new Error("Usuario no encontrado");
+    error.status = 404;
+    throw error;
+  }
+  return user.favoritos;
+}
 const addFavorito = async (userId, multimediaId) => {
   const user = await User.findById(userId);
   if (!user) {
@@ -63,4 +71,5 @@ module.exports = {
   saveUser,
   cambiarPalan,
   addFavorito,
+  getFavoritos,
 };

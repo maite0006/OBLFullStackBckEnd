@@ -21,7 +21,7 @@ const getbyEtiqueta=async(req,res)=>{
         const reviews=await byEtiqueta(etiquetaId);
         res.status(200).json(reviews);
     } catch (error) {
-        res.status(500).json({ message: `Ha ocurrido un error` });
+        res.status(error.status||500).json({ message: error.message|| 'Ha ocurrido un error' });
     } 
 }
 

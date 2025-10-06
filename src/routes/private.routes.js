@@ -13,16 +13,17 @@ const {
 router.get("/reviews", getAllReviews);
 /* router.get("/resenas/:id"); */
 router.post("/review", payloadMiddleWare(reviewSchemaValidations), createNewReview);
-router.delete("/reviews/:id", eliminarReview);
 router.get("/reviews/etiqueta/:etiquetaId", getbyEtiqueta);
+router.delete("/reviews/:id", eliminarReview);
 
 /*router.put("/resenas/:id"); */
 
 // Rutas de usuario
-const { cambiarP, agregarFavorito } = require("../controllers/user.controller");
+const { cambiarP, agregarFavorito,obtenerFavoritos } = require("../controllers/user.controller");
 
+router.post("/user/favorito", agregarFavorito);
+router.get("/user/favoritos", obtenerFavoritos);
 router.put("/user", cambiarP);
-router.post("/user/favoritos", agregarFavorito);
 
 //ruta etiquetas
 const { getAllEtiquetas } = require("../controllers/etiqueta.controller");

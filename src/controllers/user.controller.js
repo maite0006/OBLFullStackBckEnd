@@ -1,4 +1,4 @@
-const { cambiarPalan,addFavorito } = require("../models/repositorios/user.repository");
+const { cambiarPalan,addFavorito, getFavoritos } = require("../models/repositorios/user.repository");
 
 const cambiarP = async (req, res) => {
   const { body } = req;
@@ -23,7 +23,19 @@ const agregarFavorito = async (req, res) => {
   }
 };
 
+const obtenerFavoritos= async (req, res)=>{
+  const { id } = req.user;
+  try {
+    const favoritos = await getFavoritos(id);
+    res.status(200).json(favoritos);
+  } catch (error) {
+    res.status(error.status||500).json({ message: error.message|| 'Ha ocurrido un error' });
+    return;
+  }
+}
+
 module.exports = {
   cambiarP,
-  agregarFavorito
+  agregarFavorito,
+  obtenerFavoritos
 };
