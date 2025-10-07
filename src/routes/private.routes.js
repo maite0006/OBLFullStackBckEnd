@@ -6,17 +6,25 @@ const {
   getAllReviews,
   createNewReview,
   eliminarReview,
-  getbyEtiqueta
+  getbyEtiqueta,
+  putReview,
 } = require("../controllers/review.controller");
 
 // rutas del contenirdo reseñas
 router.get("/reviews", getAllReviews);
 /* router.get("/resenas/:id"); */
-router.post("/review", payloadMiddleWare(reviewSchemaValidations), createNewReview);
+router.post(
+  "/review",
+  payloadMiddleWare(reviewSchemaValidations),
+  createNewReview
+);
 router.delete("/reviews/:id", eliminarReview);
 router.get("/reviews/etiqueta/:etiquetaId", getbyEtiqueta);
-
-/*router.put("/resenas/:id"); */
+router.put(
+  "/reviews/:id",
+  /*   payloadMiddleWare(reviewSchemaValidations),
+   */ putReview
+);
 
 // Rutas de usuario
 const { cambiarP, agregarFavorito } = require("../controllers/user.controller");

@@ -21,13 +21,10 @@ const addFavorito = async (userId, multimediaId) => {
   if (!user.favoritos.includes(multimediaId)) {
     user.favoritos.push(multimediaId);
     await user.save();
-    
-  }
-  else {  
+  } else {
     const err = new Error("La multimedia ya está en favoritos");
     err.status = 400;
     throw err;
-    
   }
   return user.favoritos;
 };
@@ -46,12 +43,12 @@ const saveUser = async (name, password, email) => {
 };
 
 //TODO: Arreglar cambiar plan
-const cambiarPalan = async (userId, /* nuevoPaln, */ payload) => {
+const cambiarPalan = async (userId, payload) => {
   const user = await User.findOne({ _id: userId });
   if (user) {
-    Object.entries(payload).forEach(([key, value]) => {
+    /* Object.entries(payload).forEach(([key, value]) => {
       user[key] = value;
-    });
+    }) */ user.plan = payload.plan || user.plan;
     await user.save();
   }
   return user;

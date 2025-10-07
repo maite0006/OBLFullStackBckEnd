@@ -7,13 +7,13 @@ const allReviews = async (userId) => {
   });
   return reviews;
 };
-const byEtiqueta = async(etiquetaId)=>{
-    const reviews=await Review.find({etiquetaId:etiquetaId});
-    return reviews;
-} 
-const deleteReview=async(id)=>{
-    await Review.findByIdAndDelete(id);
-}
+const byEtiqueta = async (etiquetaId) => {
+  const reviews = await Review.find({ etiquetaId: etiquetaId });
+  return reviews;
+};
+const deleteReview = async (id) => {
+  await Review.findByIdAndDelete(id);
+};
 const createReview = async (
   comentario,
   etiquetaId,
@@ -24,11 +24,12 @@ const createReview = async (
     comentario: comentario,
     etiquetaId: etiquetaId,
     userId: usuarioId,
-    multimediaId: multimediaId
+    multimediaId: multimediaId,
   });
 
   const user = await User.findById(usuarioId);
   const plan = user.plan;
+
   // Obtiene todas las reseñas del usuario
   const reviews = await allReviews(usuarioId);
 
@@ -39,9 +40,26 @@ const createReview = async (
   await newReview.save();
 };
 
+const updateReview = async (id, userId, payload) => {
+
+  const review = await Review.findOne({
+    _id: id,
+    userId: userId,
+  });
+
+  if (!review) {
+    throw new Error("Reseña no encontrada");
+  }
+  Object.entries(payload).forEach(([key, value]) => {
+    review[key] = value;
+  });
+  await review.save();
+};
+
 module.exports = {
   allReviews,
   createReview,
   byEtiqueta,
-  deleteReview
+  deleteReview,
+  updateReview,
 };
