@@ -39,6 +39,8 @@ app.use("/v1/auth", authRouter); //rutas publicas
 
 app.use("/v1",authMiddleWare, privateRouter);
 
+
+
 (async () => {
   await connectMongoDB();
   app.listen(PORT, () =>

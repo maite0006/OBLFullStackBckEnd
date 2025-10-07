@@ -7,13 +7,21 @@ const allReviews = async (userId) => {
   });
   return reviews;
 };
+
 const byEtiqueta = async (etiquetaId) => {
   const reviews = await Review.find({ etiquetaId: etiquetaId });
+  if (!reviews || reviews.length === 0) {
+    const error = new Error("No se han encontrado reviews con esa etiqueta");
+    error.status = 404;
+    throw error;
+  }
   return reviews;
 };
+
 const deleteReview = async (id) => {
   await Review.findByIdAndDelete(id);
 };
+
 const createReview = async (
   comentario,
   etiquetaId,
@@ -41,7 +49,6 @@ const createReview = async (
 };
 
 const updateReview = async (id, userId, payload) => {
-
   const review = await Review.findOne({
     _id: id,
     userId: userId,
