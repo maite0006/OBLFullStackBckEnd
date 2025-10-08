@@ -27,6 +27,9 @@ const obtenerFavoritos= async (req, res)=>{
   const { id } = req.user;
   try {
     const favoritos = await getFavoritos(id);
+    if (favoritos.length === 0) {
+      return res.status(200).json({ message: "No hay elementos en favoritos" });
+    }
     res.status(200).json(favoritos);
   } catch (error) {
     res.status(error.status||500).json({ message: error.message|| 'Ha ocurrido un error' });

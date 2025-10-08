@@ -1,5 +1,5 @@
 const Review = require("../review.model.js");
-const User = require("../user.model.js");
+
 
 const allReviews = async (userId) => {
   const reviews = await Review.find({
@@ -8,13 +8,13 @@ const allReviews = async (userId) => {
   return reviews;
 };
 
+const findReviewById = async (id) => {  
+  const review = await Review.findById(id);
+  return review;
+}
+
 const byEtiqueta = async (etiquetaId) => {
   const reviews = await Review.find({ etiquetaId: etiquetaId });
-  if (!reviews || reviews.length === 0) {
-    const error = new Error("No se han encontrado reviews con esa etiqueta");
-    error.status = 404;
-    throw error;
-  }
   return reviews;
 };
 
@@ -34,18 +34,8 @@ const createReview = async (
     userId: usuarioId,
     multimediaId: multimediaId,
   });
-
-  const user = await User.findById(usuarioId);
-  const plan = user.plan;
-
-  // Obtiene todas las reseñas del usuario
-  const reviews = await allReviews(usuarioId);
-
-  // Valida el límite correctamente
-  if (plan === "plus" && reviews.length >= 10) {
-    throw new Error("Limite de reseñas alcanzado, actualice su plan");
-  }
   await newReview.save();
+  return newReview;
 };
 
 const updateReview = async (id, userId, payload) => {
@@ -55,7 +45,9 @@ const updateReview = async (id, userId, payload) => {
   });
 
   if (!review) {
-    throw new Error("Reseña no encontrada");
+    const err= new Error("Reseña no encontrada");
+    err.status=403
+    throw err;
   }
   Object.entries(payload).forEach(([key, value]) => {
     review[key] = value;
@@ -69,4 +61,5 @@ module.exports = {
   byEtiqueta,
   deleteReview,
   updateReview,
+  findReviewById,
 };
