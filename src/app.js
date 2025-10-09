@@ -25,8 +25,6 @@ const connectMongoDB = require("./models/mongo.connection");
       "Ha ocurrido un error al conectarse a la base de datos de MongoDB",
       error
     );
-    /*     process.exit(1);
-     */
   }
 })();
 
