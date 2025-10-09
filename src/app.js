@@ -25,8 +25,6 @@ const connectMongoDB = require("./models/mongo.connection");
       "Ha ocurrido un error al conectarse a la base de datos de MongoDB",
       error
     );
-    /*     process.exit(1);
-     */
   }
 })();
 
@@ -35,8 +33,8 @@ app.use(morgan("dev"));
 app.use(cors());
 
 //rutas publicas
+app.use("/", publicRouter);
 app.use("/v1/auth", authRouter);
-app.use("/v1/public", publicRouter);
 
 //por fuera del authrouter, el resto requerira pasar el authmiddleware
 
