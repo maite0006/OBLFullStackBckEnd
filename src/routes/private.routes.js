@@ -14,13 +14,17 @@ const {
 
 // rutas del contenirdo reseñas
 router.get("/reviews", getAllReviews);
-router.post("/review", payloadMiddleWare(reviewSchemaValidations), createNewReview);
+router.post(
+  "/review",
+  payloadMiddleWare(reviewSchemaValidations),
+  createNewReview
+);
 router.delete("/reviews/:id", eliminarReview);
 router.get("/reviews/etiqueta/:etiquetaId", getbyEtiqueta);
 router.put(
   "/reviews/:id",
-  /*   payloadMiddleWare(reviewSchemaValidations),
-  */ putReview
+  payloadMiddleWare(reviewSchemaValidations),
+  putReview
 );
 router.get("/reviews/:id", getReviewById);
 

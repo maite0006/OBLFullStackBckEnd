@@ -9,7 +9,7 @@ const isValidPassword = async (password, userPassword) => {
   const result = await bcrypt.compare(password, userPassword);
   return result;
 };
-const getFavoritos= async (userId) => {
+const getFavoritos = async (userId) => {
   const user = await User.findById(userId);
   if (!user) {
     const error = new Error("Usuario no encontrado");
@@ -17,7 +17,7 @@ const getFavoritos= async (userId) => {
     throw error;
   }
   return user.favoritos;
-}
+};
 const addFavorito = async (userId, multimediaId) => {
   const user = await User.findById(userId);
   if (!user) {
@@ -51,12 +51,10 @@ const saveUser = async (name, password, email) => {
 };
 
 //TODO: Arreglar cambiar plan
-const cambiarPalan = async (userId, payload) => {
+const cambiarPalan = async (userId, plan) => {
   const user = await User.findOne({ _id: userId });
   if (user) {
-    /* Object.entries(payload).forEach(([key, value]) => {
-      user[key] = value;
-    }) */ user.plan = payload.plan || user.plan;
+    user.plan = plan || user.plan;
     await user.save();
   }
   return user;
