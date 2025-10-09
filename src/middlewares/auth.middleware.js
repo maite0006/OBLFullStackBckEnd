@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
 const authMiddleWare = (req, res, next) => {
+  console.log("Ruta:", req.path);
   const token = req.headers["authorization"];
   if (!token) {
     return res

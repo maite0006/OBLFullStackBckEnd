@@ -35,8 +35,8 @@ app.use(morgan("dev"));
 app.use(cors());
 
 //rutas publicas
-app.use("/v1/auth", authRouter);
-app.use("/v1/public", publicRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/public", publicRouter);
 
 //por fuera del authrouter, el resto requerira pasar el authmiddleware
 
